@@ -1,0 +1,22 @@
+---
+label: New page
+hide_body: false
+fields:
+- type: text
+  name: title
+  label: Title
+  description: Catchy title of the page
+- type: text
+  name: layout
+  label: Layout
+  default: page-sidebar
+  description: 'Template layout of post. Options: default, page-sidebar, page, post'
+- type: text
+  name: permalink
+  label: The link on the website
+  description: 'For example: /name-of-page.html'
+- type: boolean
+  name: comments
+  label: Are comments allowed?
+  description: Enable or disable comments
+  default: true

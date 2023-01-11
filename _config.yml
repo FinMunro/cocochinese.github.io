@@ -1,0 +1,73 @@
+---
+name: Dà nǎo
+description: dà nǎo | 大脑 
+logo: assets/images/logo.png
+favicon: assets/images/favicon.ico
+baseurl: ''
+disqus: djapplelab
+email: no@email.com
+mailchimp-list: 
+include:
+- _pages
+permalink: "/:title/"
+url: https://www.da-nao.com/
+plugins:
+- jekyll-feed
+- jekyll-sitemap
+- jekyll-paginate
+- jekyll-seo-tag
+authors:
+  finlay:
+    name: Finlay Munro
+    short: finlay
+    avatar: "/assets/images/finlay.jpeg"
+    bio: Teacher and student in Chinese.
+    linkedin: https://www.linkedin.com/in/finlay-munro-5a9b22168/
+defaults:
+- scope: ''
+  values: ''
+- scope:
+    path: _pages
+  values:
+    layout: page
+markdown: kramdown
+highlighter: rouge
+paginate: "10"
+exclude:
+- README.markdown
+- package.json
+- grunt.js
+- Gruntfile.js
+- Gruntfile.coffee
+- node_modules
+- _drafts
+- _pages.old
+- _posts.old
+- admin
+compress_html:
+  clippings: all
+  comments:
+  - ''
+  endings:
+  - html
+  - head
+  - body
+  - li
+  - dt
+  - dd
+  - rt
+  - rp
+  - optgroup
+  - option
+  - colgroup
+  - caption
+  - thead
+  - tbody
+  - tfoot
+  - tr
+  - td
+  - th
+  profile: false
+  blanklines: false
+  ignore:
+    envs: []

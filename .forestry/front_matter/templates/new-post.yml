@@ -1,0 +1,79 @@
+---
+label: New post
+hide_body: false
+display_field: title
+fields:
+- type: text
+  name: layout
+  label: Layout
+  config:
+    required: true
+  default: post
+  description: 'Template layout of post. Options: default, page-sidebar, page, post'
+  hidden: true
+- type: text
+  name: title
+  label: Title
+  description: Catchy title of the post
+  config:
+    required: true
+- name: date
+  type: datetime
+  label: Date of post
+  default: '2020-01-01T00:00:00.000+00:00'
+  config:
+    required: true
+    date_format: DD-MM-YYYY
+    time_format: ''
+    display_utc: false
+    export_format: YYYY-MM-DD 00:00 +0000
+  description: The publication date
+- type: text
+  name: author
+  label: Author
+  config:
+    required: true
+  description: Author of post. First name all lower case. Check settings/authors for
+    the list
+- type: list
+  name: categories
+  label: Categories
+  config:
+    use_select: false
+    source:
+      type: simple
+      section: jekyll-posts
+    min: '1'
+    max: '2'
+  description: 'The category this post falls under. Make sure to be consistent in
+    this name. One word, all lower case. Example: lab, history, news'
+- type: file
+  name: image
+  label: Image
+  description: 'Image that promotes post. Example: 750 × 500'
+  config:
+    maxSize: '3'
+  default: "/assets/images/default.jpg"
+- type: list
+  name: tags
+  label: Tags
+  config:
+    use_select: true
+    source:
+      type: simple
+    options:
+    - sticky
+    - featured
+  description: Tags that change where it appearances on the website
+- type: list
+  name: words
+  label: words
+  config:
+    use_select: false
+    source:
+      type: simple
+    min: 1
+  description: Words that need to be revised
+pages:
+- _posts/2001-08-30-test.md
+- _posts/2023-01-07-the-significance-of-a-volunteer.md

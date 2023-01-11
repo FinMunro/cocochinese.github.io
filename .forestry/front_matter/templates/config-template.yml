@@ -1,0 +1,135 @@
+---
+label: Config template
+hide_body: true
+fields:
+- type: text
+  name: name
+  label: Name
+- type: text
+  name: description
+  label: Description
+- type: file
+  name: logo
+  label: logo
+  hidden: true
+- type: file
+  name: favicon
+  label: favicon
+  hidden: true
+- type: text
+  name: baseurl
+  label: Base URL
+- type: text
+  name: disqus
+  label: Disqus comment namespace
+- type: text
+  name: email
+  label: Email (contact form)
+- type: text
+  name: mailchimp-list
+  label: Mailchimp mailing list
+- type: list
+  name: include
+  label: include
+  hidden: true
+- type: text
+  name: permalink
+  hidden: false
+  label: Default URL formatting
+- type: list
+  name: plugins
+  label: Plugins
+  config:
+    use_select: false
+- type: field_group
+  name: authors
+  label: Authors
+  fields:
+  - type: field_group
+    name: gerd
+    label: gerd
+    fields:
+    - type: text
+      name: name
+      label: name
+    - type: file
+      name: avatar
+      label: avatar
+    - type: textarea
+      name: bio
+      label: bio
+    - type: text
+      name: linkedin
+      label: linkedin
+  - type: field_group
+    name: donald
+    label: donald
+    fields:
+    - type: text
+      name: name
+      label: name
+    - type: file
+      name: avatar
+      label: avatar
+    - type: text
+      name: bio
+      label: bio
+    - type: text
+      name: linkedin
+      label: linkedin
+  - type: field_group
+    name: sonja
+    label: sonja
+    fields:
+    - type: text
+      name: name
+      label: name
+    - type: file
+      name: avatar
+      label: avatar
+    - type: text
+      name: bio
+      label: bio
+    - type: text
+      name: linkedin
+      label: linkedin
+- type: field_group_list
+  name: defaults
+  label: defaults
+  fields:
+  - type: field_group
+    name: scope
+    label: scope
+    fields:
+    - type: text
+      name: path
+      label: path
+  - type: field_group
+    name: values
+    label: values
+    fields:
+    - type: text
+      name: layout
+      label: layout
+    - type: text
+      name: author
+      label: author
+    - type: file
+      name: avatar
+      label: avatar
+  hidden: true
+- type: text
+  name: markdown
+  label: markdown
+  hidden: true
+- type: text
+  name: highlighter
+  label: highlighter
+  hidden: true
+- type: number
+  name: paginate
+  label: paginate
+- type: list
+  name: exclude
+  label: exclude
+  hidden: true

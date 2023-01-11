@@ -1,0 +1,71 @@
+# Ruby CircleCI 2.0 configuration file
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.5
+    working_directory: ~/repo
+    environment:
+      BUNDLE_PATH: ~/repo/vendor/bundle
+    steps:
+      - checkout
+      - restore_cache:
+          key: circlev2-{{ checksum "Gemfile" }}
+      - run:
+          name: Bundle Install
+          command: bundle check --path=~/repo/vendor/bundle || bundle install --path=~/repo/vendor/bundle --jobs=4
+      - save_cache:
+          key: circlev2-{{ checksum "Gemfile" }}
+          paths:
+            - ~/repo/vendor/bundle
+      - run:
+          name: Jekyll build
+          command: bundle exec jekyll build
+      - run:
+          name: HTMLProofer tests
+          command: |
+            bundle exec htmlproofer ./_site \
+              --allow-hash-href \
+              --check-favicon  \
+              --alt-ignore '/.*/' \
+              --check-html \
+              --disable-external
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - _site
+            - admin
+  deploy:
+    working_directory: ~/repo
+    environment:
+      LC_ALL: en_US.UTF-8
+      LC_CTYPE: en_US.UTF-8
+      PYTHONIOENCODING: "UTF-8"  
+    docker:
+      - image: google/cloud-sdk
+    steps:
+      - attach_workspace:
+          at: ./
+      - run:
+          name: Install locales
+          command: apt-get -y install locales sudo && locale-gen && sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen
+      - run:
+          name: Set locales
+          command: sudo locale-gen en_US.UTF-8 && sudo update-locale LANG=en_US.UTF-8 && export LANG=en_US.UTF-8 && export LANGUAGE=en_US:en && export LC_ALL=en_US.UTF-8 && export LANG=en_US.UTF-8 && export LC_ALL=en_US.UTF-8
+      - run: |
+          echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
+          gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+          gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+          LC_ALL=en_US.UTF-8 gsutil -m cp -r ./_site/* gs://djapplelab.com/
+          LC_ALL=en_US.UTF-8 gsutil -m cp -r ./admin gs://djapplelab.com/
+workflows:
+  version: 2
+  test-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
