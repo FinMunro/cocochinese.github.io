@@ -912,4 +912,29 @@ div.a2a_full_footer {display:none;}
 		 height:280px !Important;
 	 }
  }
- 
+
+ #exam #question {
+ 	font-weight: bold;
+ 	color: black;
+ }
+
+ #exam #answer.success {
+    position: relative;
+    animation: shake .1s linear;
+    animation-iteration-count: 3;
+    border: green;
+    background-color: green;
+}
+
+#exam #answer.error {
+    position: relative;
+    animation: shake .1s linear;
+    animation-iteration-count: 3;
+    border: red;
+    background-color: #ff000075;
+}
+
+@keyframes shake {
+    0% { left: -5px; }
+    100% { right: -5px; }
+}

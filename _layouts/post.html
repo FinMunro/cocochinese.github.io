@@ -6,7 +6,7 @@ layout: default
 <div class="jumbotron jumbotron-fluid mb-3 pl-0 pt-0 pb-0 bg-white position-relative">
 		<div class="h-100 tofront">
 			<div class="row {% if page.image %} justify-content-between {% else %} justify-content-center {% endif %}">
-				<div class="{% if page.image %} col-md-6 {% else %} col-md-8 {% endif %} pr-0 pr-md-4 pt-4 pb-4 align-self-center">
+				<div class="col-md-12 align-self-center">
 					<p class="text-uppercase font-weight-bold">
                         <span class="catlist">
 						{% for category in page.categories %}
@@ -15,20 +15,19 @@ layout: default
                         </span>
 					</p>
 					<h1 class="display-4 mb-4 article-headline">{{ page.title }}</h1>
-					<div class="d-flex align-items-center">
-                        {% if author.avatar %}
-                        <img class="rounded-circle" src="{{site.baseurl}}{{author.avatar}}" alt="{{author.name}}" width="70"/>
-                        {% endif %}
-						<small class="ml-3"> {{ author.name }} <span><a target="_blank" href="{{ author.linkedin }}" class="btn btn-outline-success btn-sm btn-round ml-1">Follow</a></span>
-                            <span class="text-muted d-block mt-1">{{ page.date | date: '%b %d, %Y' }} · {% include meta-read-time.html %}</span>
-						</small>
+
+					<div class="share">
+						<!-- AddToAny BEGIN -->
+						<div class="row a2a_kit a2a_kit_size_32 a2a_default_style">
+							<a class="col-auto a2a_dd" href="https://www.addtoany.com/share"></a>
+							<a class="col-auto a2a_button_email"></a>
+							<a class="col-auto a2a_button_linkedin"></a>
+							<a class="col-auto a2a_button_twitter"></a>
+						</div>
+						<script async src="https://static.addtoany.com/menu/page.js"></script>
+						<!-- AddToAny END -->
 					</div>
 				</div>
-                {% if page.image %}
-				<div class="col-lg-4 col-md-6 pr-0 align-self-center">
-					<img class="rounded" src="{% if page.image contains "://" %}{{ page.image }}{% else %}{{ site.baseurl }}{{ page.image }}{% endif %}" alt="{{ page.title }}">
-				</div>
-                {% endif %}
 			</div>
 		</div>
 	</div>
@@ -39,26 +38,6 @@ layout: default
 
 
 <div class="pt-4 pb-4 row">
-	<!-- Share -->
-	<div class="col-lg-2 pr-4 mb-4 col-md-12">
-		<div class="sticky-top sticky-top-offset text-center">
-			<div class="text-muted">
-				Share this
-			</div>
-			<div class="share d-inline-block">
-				<!-- AddToAny BEGIN -->
-				<div class="a2a_kit a2a_kit_size_32 a2a_default_style">
-					<a class="a2a_dd" href="https://www.addtoany.com/share"></a>
-					<a class="a2a_button_email"></a>
-					<a class="a2a_button_linkedin"></a>
-					<a class="a2a_button_twitter"></a>
-				</div>
-				<script async src="https://static.addtoany.com/menu/page.js"></script>
-				<!-- AddToAny END -->
-			</div>
-		</div>
-	</div>
-
 	<div class="col-md-12 col-lg-8">
         <div class="row justify-content-center">
         
@@ -103,31 +82,68 @@ layout: default
 					</div>
 				</div>
 	            {% endif %}
-	            
-	            
-	             <!-- Author Box -->
-	                {% if page.author %}				
-					<div class="row mt-5">
-						<div class="col-md-2 align-self-center">
-	                         {% if author.avatar %}
-	                        <img class="rounded-circle" src="{{site.baseurl}}{{author.avatar}}" alt="{{author.name}}" width="90"/>
-	                        {% endif %} 
-						</div>
-						<div class="col-md-10">		
-	                        <h5 class="font-weight-bold">Written by {{ author.name }} {% if author.linkedin %}<span><a target="_blank" href="{{ author.linkedin }}" class="btn btn-outline-success btn-sm btn-round ml-2">Follow</a></span>{% endif %}</h5>
-							{{ author.bio }}					
-						</div>
-					</div>				
-	                {% endif %}
-	            
-	            <!-- Comments -->
-	            {% if page.comments != false %}
-	                {% include comments.html %}
-	            {% endif %}
-	            
 			</div>
 	        
 	        
+		</div>
+	</div>
+
+	<!-- Exam -->
+	<div class="col-lg-2 pr-4 mb-4 col-md-12">
+	<script language="JavaScript" type="text/javascript">
+		$( document ).ready(function() {
+			let words = JSON.parse('{{ page.words | jsonify }}');
+			startExam(words);
+		});
+	</script>
+
+		<div class="sticky-top sticky-top-offset text-center">
+			<div class="text-muted">
+				<h3>Exam</h3>
+				<div class="form-group">
+					<form id="exam" style="display: none;">
+					    <label id="question" for="answer">Question</label>
+					    <input type="text" autocomplete="off" class="form-control" id="answer" aria-describedby="answerHelp" placeholder="Enter word">
+					    <small id="answerHelp" class="form-text text-muted">Enter the same word and press enter.</small>
+					</form>
+					<div id="exam-success" style="display: none;">
+					    <button type="button" class="btn btn-success">Next class</button>
+					    <button type="button" id="restart" class="btn btn-warning">Restart exam</button>
+				    </div>
+				 </div>
+			</div>
+			
+		</div>
+	</div>
+
+</div>
+
+<div class="container">
+<div class="jumbotron jumbotron-fluid mb-3 pl-0 pt-0 pb-0 bg-white position-relative">
+		<div class="h-100 tofront">
+			<div class="row justify-content-center">
+				<div class="col-md-12 align-self-center">
+					<!-- Author Box -->
+					{% if page.author %}				
+					<div class="row mt-5">
+						<div class="col-md-2 align-self-center">
+					         {% if author.avatar %}
+					        <img class="rounded-circle" src="{{site.baseurl}}{{author.avatar}}" alt="{{author.name}}" width="90"/>
+					        {% endif %} 
+						</div>
+						<div class="col-md-10">		
+					        <h5 class="font-weight-bold">Written by {{ author.name }} {% if author.linkedin %}<span><a target="_blank" href="{{ author.linkedin }}" class="btn btn-outline-success btn-sm btn-round ml-2">Follow</a></span>{% endif %}</h5>
+							{{ author.bio }}					
+						</div>
+					</div>				
+					{% endif %}
+
+					<!-- Comments -->
+					{% if page.comments != false %}
+					{% include comments.html %}
+					{% endif %}
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
