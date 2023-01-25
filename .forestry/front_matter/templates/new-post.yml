@@ -75,5 +75,5 @@ fields:
     min: 1
   description: Words that need to be revised
 pages:
-- _posts/2001-08-30-test.md
 - _posts/2023-01-07-the-significance-of-a-volunteer.md
+- _posts/test.md
